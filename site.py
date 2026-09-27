@@ -12,6 +12,7 @@ ROOT.mkdir(exist_ok=True)
 URLS = {
     "colombia": "colombia.html",
     "venezuela": "venezuela.html",
+    "plain": "plain-arepas.html",
     "ancestral": "ancestral.html",
     "history": "history.html",
 }
@@ -19,7 +20,8 @@ URLS = {
 
 def header(active="overview"):
     links = [("overview", "Overview", "index.html"), ("colombia", "Colombia", URLS["colombia"]),
-             ("venezuela", "Venezuela", URLS["venezuela"]), ("ancestral", "Ancestral cake", URLS["ancestral"]),
+             ("venezuela", "Venezuela", URLS["venezuela"]), ("plain", "Plain arepas", URLS["plain"]),
+             ("ancestral", "Ancestral cake", URLS["ancestral"]),
              ("history", "History", URLS["history"])]
     nav = "".join(f'<a href="{url}"' + (' aria-current="page"' if key == active else '') + f'>{label}</a>'
                   for key, label, url in links)
@@ -35,7 +37,7 @@ def document(title, description, body, active="overview"):
     <link rel="stylesheet" href="assets/site.css"></head><body>
     <a href="#main" class="skip-link" style="position:absolute;left:-10000px;top:auto;z-index:10;background:#fff;padding:10px" onfocus="this.style.left='10px'" onblur="this.style.left='-10000px'">Skip to content</a>
     {header(active)}<main id="main">{body}</main><footer class="footer"><div class="wrap footer-inner">
-      <span>Maíz · Three recipes and their shared history</span><span><a href="index.html">Overview</a> · <a href="history.html">Evidence &amp; sources</a></span>
+      <span>Maíz · Arepa recipes and their shared history</span><span><a href="index.html">Overview</a> · <a href="history.html">Evidence &amp; sources</a></span>
     </div></footer></body></html>'''
 
 
@@ -55,7 +57,7 @@ def recipe_page(key, title, kicker, dek, pills, file, alt, caption, ingredients,
     ing_html = "".join(f'<h3>{heading}</h3><ul>' + "".join(f'<li>{item}</li>' for item in items) + '</ul>'
                        for heading, items in ingredients)
     steps_html = "".join(f'<li><div><strong>{heading}</strong><p>{body}</p></div></li>' for heading, body in method)
-    body = f'''<section class="detail-intro wrap"><a class="breadcrumb" href="index.html">← All four stories</a>
+    body = f'''<section class="detail-intro wrap"><a class="breadcrumb" href="index.html">← Overview</a>
       <div class="eyebrow">{kicker}</div><h1>{title}</h1><p class="dek">{dek}</p><div class="pills">{pill_html}</div></section>
       {picture(file, alt, caption)}
       <div class="wrap recipe-layout"><aside class="ingredients"><h2>Ingredients</h2>{ing_html}</aside>
@@ -66,18 +68,20 @@ def recipe_page(key, title, kicker, dek, pills, file, alt, caption, ingredients,
 
 
 overview = '''<section class="hero"><div class="wrap hero-inner"><div><span class="eyebrow" style="color:var(--maize)">A maize inheritance</span>
-  <h1>One grain.<br>Many kitchens.</h1><p class="lead">Meet three very different corn cakes, then follow the evidence of how Indigenous maize traditions, colonial contact, migration, and modern kitchens shaped the arepas we know.</p>
+  <h1>One grain.<br>Many kitchens.</h1><p class="lead">Meet three distinctive corn cakes, compare plain Colombian and Venezuelan arepas, then follow the evidence of how Indigenous maize traditions, colonial contact, migration, and modern kitchens shaped them.</p>
   <a class="jump" href="#explore">Explore the recipes ↓</a></div><div class="hero-side"><strong>Read the evidence with the food.</strong>
   <p>The ancient cake is a reconstruction. The Colombian and Venezuelan recipes are documented modern expressions. Each page links to its sources.</p></div></div></section>
-  <section class="section" id="explore"><div class="wrap"><div class="section-head"><div><span class="eyebrow">The table</span><h2>Three cakes, three moments</h2></div>
+  <section class="section" id="explore"><div class="wrap"><div class="section-head"><div><span class="eyebrow">The table</span><h2>Three featured cakes</h2></div>
   <p>Begin with a dish or start before the present borders. Every card opens a full recipe with context and source notes.</p></div>
   <div class="grid">
    <a class="feature" href="ancestral.html"><img src="assets/metate.webp" alt="Two maize grinding stones displayed in San Agustín, Colombia" loading="eager"><div class="body"><span class="label">Before modern nations · reconstruction</span><h3>Whole maize on a griddle</h3><p>A cookable interpretation of Indigenous maize processing described in sixteenth-century accounts.</p><span class="read">Read the ancestral cake ↗</span></div></a>
    <a class="feature" href="colombia.html"><img src="assets/arepa-de-huevo.webp" alt="A group of golden fried arepas de huevo" loading="eager"><div class="body"><span class="label">Colombia · Luruaco, Atlántico</span><h3>Arepa’e huevo</h3><p>The Caribbean coast’s puffed, fried maize pocket with an egg inside.</p><span class="read">Cook the Colombian arepa ↗</span></div></a>
    <a class="feature" href="venezuela.html"><img src="assets/reina-pepiada.webp" alt="Chicken and avocado filled Venezuelan arepas" loading="eager"><div class="body"><span class="label">Venezuela · Caracas</span><h3>Reina Pepiada</h3><p>A griddled arepa filled with chicken and avocado, named in the 1950s.</p><span class="read">Cook the Venezuelan arepa ↗</span></div></a>
-  </div><a class="history-band" href="history.html"><div><span class="eyebrow">The fourth story · two trails</span><h2>Two histories behind the arepa</h2></div>
+  </div><a class="compare-band" href="plain-arepas.html"><div><span class="eyebrow">Back to the base</span><h2>Plain arepas, side by side</h2></div>
+  <p>Make an Antioquian arepa from dehulled maize kernels and a Venezuelan one from precooked flour, without fillings or toppings. See exactly where the two sourced methods differ. <strong>Compare the recipes ↗</strong></p></a>
+  <a class="history-band" href="history.html"><div><span class="eyebrow">Two evidence trails</span><h2>Two histories behind the arepa</h2></div>
   <p>Trace maize from its Mexican origin through Colombia and Venezuela. Separately, follow the evidence for cooking surfaces, corn cakes, colonial accounts, and later recipes. Each claim links to its source. <strong>Read the history ↗</strong></p></a></div></section>'''
-(ROOT / "index.html").write_text(document("Overview", "Three sourced corn-cake recipes and an evidence-led history of arepas in Colombia and Venezuela.", overview), encoding="utf-8")
+(ROOT / "index.html").write_text(document("Overview", "Three featured corn cakes, two plain arepas compared side by side, and an evidence-led history of maize across Colombia and Venezuela.", overview), encoding="utf-8")
 
 
 colombia = recipe_page(
@@ -144,7 +148,9 @@ ancestral = recipe_page(
 
 
 from history_page import build_history
+from plain_page import build_plain_page
 
 (ROOT / URLS["history"]).write_text(build_history(document, sources), encoding="utf-8")
+(ROOT / URLS["plain"]).write_text(build_plain_page(document, sources), encoding="utf-8")
 
 print("Built:", ", ".join(str(p.relative_to(ROOT)) for p in sorted(ROOT.glob("*.html"))))

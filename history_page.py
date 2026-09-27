@@ -163,7 +163,7 @@ def build_history(document, sources):
     ]
 
     body = f'''<section class="history-intro"><div class="wrap detail-intro">
-      <a class="breadcrumb" href="index.html">← All four stories</a>
+      <a class="breadcrumb" href="index.html">← Overview</a>
       <span class="eyebrow">History / two investigations</span>
       <h1>One grain. Two histories.</h1>
       <p class="dek">When and how did maize move through the region? When can we identify a cooked corn cake? The evidence answers those questions at different times. Follow each trail independently, then see where they meet.</p>
