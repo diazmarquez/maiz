@@ -1,4 +1,4 @@
-"""Build the five-page, dependency-free Maíz editorial site.
+"""Build the dependency-free Maíz editorial site.
 
 Run `python site.py` after changing page content. Generated HTML lives in dist/.
 """
@@ -13,6 +13,7 @@ URLS = {
     "colombia": "colombia.html",
     "venezuela": "venezuela.html",
     "plain": "plain-arepas.html",
+    "native": "indigenous-recipes.html",
     "ancestral": "ancestral.html",
     "history": "history.html",
 }
@@ -21,6 +22,7 @@ URLS = {
 def header(active="overview"):
     links = [("overview", "Overview", "index.html"), ("colombia", "Colombia", URLS["colombia"]),
              ("venezuela", "Venezuela", URLS["venezuela"]), ("plain", "Plain arepas", URLS["plain"]),
+             ("native", "Indigenous recipes", URLS["native"]),
              ("ancestral", "Ancestral cake", URLS["ancestral"]),
              ("history", "History", URLS["history"])]
     nav = "".join(f'<a href="{url}"' + (' aria-current="page"' if key == active else '') + f'>{label}</a>'
@@ -79,6 +81,8 @@ overview = '''<section class="hero"><div class="wrap hero-inner"><div><span clas
    <a class="feature" href="venezuela.html"><img src="assets/reina-pepiada.webp" alt="Chicken and avocado filled Venezuelan arepas" loading="eager"><div class="body"><span class="label">Venezuela · Caracas</span><h3>Reina Pepiada</h3><p>A griddled arepa filled with chicken and avocado, named in the 1950s.</p><span class="read">Cook the Venezuelan arepa ↗</span></div></a>
   </div><a class="compare-band" href="plain-arepas.html"><div><span class="eyebrow">Back to the base</span><h2>Plain arepas, side by side</h2></div>
   <p>Make an Antioquian arepa from dehulled maize kernels and a Venezuelan one from precooked flour, without fillings or toppings. See exactly where the two sourced methods differ. <strong>Compare the recipes ↗</strong></p></a>
+  <a class="native-band" href="indigenous-recipes.html"><div><span class="eyebrow">Living kitchens · recorded sources</span><h2>Indigenous recipes of the region</h2></div>
+  <p>Read Zenú and Wayúu corn-cake methods in their documented form, with the community or cook credited on each card. A Warao account is identified separately where the record is incomplete. <strong>See the recipes ↗</strong></p></a>
   <a class="history-band" href="history.html"><div><span class="eyebrow">Two evidence trails</span><h2>Two histories behind the arepa</h2></div>
   <p>Trace maize from its Mexican origin through Colombia and Venezuela. Separately, follow the evidence for cooking surfaces, corn cakes, colonial accounts, and later recipes. Each claim links to its source. <strong>Read the history ↗</strong></p></a></div></section>'''
 (ROOT / "index.html").write_text(document("Overview", "Three featured corn cakes, two plain arepas compared side by side, and an evidence-led history of maize across Colombia and Venezuela.", overview), encoding="utf-8")
@@ -149,8 +153,10 @@ ancestral = recipe_page(
 
 from history_page import build_history
 from plain_page import build_plain_page
+from native_page import build_native_page
 
 (ROOT / URLS["history"]).write_text(build_history(document, sources), encoding="utf-8")
 (ROOT / URLS["plain"]).write_text(build_plain_page(document, sources), encoding="utf-8")
+(ROOT / URLS["native"]).write_text(build_native_page(document, sources), encoding="utf-8")
 
 print("Built:", ", ".join(str(p.relative_to(ROOT)) for p in sorted(ROOT.glob("*.html"))))
