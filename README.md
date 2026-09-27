@@ -8,13 +8,13 @@ A five-page, source-linked ChatGPT Site: an overview, Colombian arepa’e huevo,
 - `dist/colombia.html` — Luruaco arepa’e huevo
 - `dist/venezuela.html` — Caracas Reina Pepiada
 - `dist/ancestral.html` — Indigenous whole-maize cake reconstruction
-- `dist/history.html` — evidence timeline and multicultural exchange
+- `dist/history.html` — independent crop and corn-cake timelines, their evidence intersection, and documented multicultural exchange
 
-The site is plain static HTML/CSS. Run `python site.py` to regenerate the pages after editing their content. Serve `dist/` locally with `python -m http.server 8000 -d dist`.
+The site is plain static HTML/CSS. Edit the overview and recipes in `site.py`; the history text and claim-level references live in `history_page.py`. Run `python site.py` to regenerate the pages. Serve `dist/` locally with `python -m http.server 8000 -d dist`.
 
 ## Historical method
 
-The ancestor recipe is a **modern kitchen reconstruction** from contact-era accounts. It does not claim to preserve exact preconquest quantities. Archaeological maize finds date the crop, not a particular arepa. The 1548 Riohacha document is the first surviving written usage listed by the historical dictionary, not a proof of invention there. Each page links directly to its sources and notes where its recipe is adapted.
+The ancestor recipe is a **modern kitchen reconstruction** from contact-era accounts. It does not claim to preserve exact preconquest quantities. The history page separates the crop's origin and movement from evidence for a formed food. Its dates label the material actually dated: a layer or charcoal, a person, a maize specimen, a genetic model, or a written account. El Saladero links maize starch with a ceramic cooking surface, but does not preserve a cake. The 1548 Riohacha document is a surviving written usage listed by the historical dictionary, not a proof of invention there. Each page links directly to its sources and notes where its recipe is adapted.
 
 ## Image credits
 
